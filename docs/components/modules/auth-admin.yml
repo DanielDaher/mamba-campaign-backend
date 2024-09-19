@@ -27,7 +27,7 @@ components:
         credential:
           type: string
           required: true
-          example: 'admin@email.com'
+          example: 'admin@getnada.com'
         password:
           type: string
           required: true
@@ -39,4 +39,4 @@ components:
         credential:
           type: string
           required: true
-          example: 'admin@email.com'
+          example: 'admin@getnada.com'

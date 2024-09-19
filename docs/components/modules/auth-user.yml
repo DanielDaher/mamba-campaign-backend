@@ -30,7 +30,7 @@ components:
         credential:
           type: string
           required: true
-          example: 'user@email.com'
+          example: 'user@getnada.com'
         password:
           type: string
           required: true
@@ -42,7 +42,7 @@ components:
         credential:
           type: string
           required: true
-          example: 'user@email.com'
+          example: 'user@getnada.com'
 
     ResetPasswordUserSchema:
       type: object
@@ -50,7 +50,7 @@ components:
         credential:
           type: string
           required: true
-          example: 'user@email.com'
+          example: 'user@getnada.com'
         code:
           type: string
           required: true

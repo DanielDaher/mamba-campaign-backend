@@ -4,6 +4,12 @@ paths:
       summary: 'Rota utilizada para login'
       tags:
         - Gerencial - Autenticação
+      description: >
+        ## - Por se tratar de um desafio técnico, apenas o admin com as credenciais abaixo está cadastrado no banco de dados.
+
+        ## - Utilize estas credencias para logar como administrador.
+
+        ### - Lembrando que, neste projeto, o administrador consegue criar, editar e deletar categorias e campanhas. O usuário comum só consegue fazer um soft delete nas campanhas (e consegue apenas fazer um GET nas categorias).
       requestBody:
         required: true
         content:
