@@ -1,13 +1,15 @@
 import { PrismaClient } from '@prisma/client';
 import { seedAdmin } from './admin';
 import { seedUser } from './user';
-import { seedTexts } from './text';
+import { seedCategory } from './category';
+import { seedCampaign } from './campaign';
 
 const prisma = new PrismaClient();
 async function main() {
   await seedAdmin(prisma);
   await seedUser(prisma);
-  await seedTexts(prisma);
+  await seedCategory(prisma);
+  seedCampaign(prisma);
 }
 
 main()
