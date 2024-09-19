@@ -1,0 +1,27 @@
+components:
+  schemas:
+    CategorySchema:
+      type: object
+      properties:
+        id:
+          type: number
+          readOnly: true
+          example: 1
+        title:
+          type: string
+          example: 'Eletrônicos'
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+          example: '2024-08-01T14:45:00Z'
+        updatedAt:
+          type: string
+          format: date-time
+          readOnly: true
+          example: '2024-09-01T14:45:00Z'
+        campaigns:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/CampaignSchema'
