@@ -1,0 +1,103 @@
+// This is your Prisma schema file, learn more about it in the docs: https://pris.ly/d/prisma-schema
+// Attributes: https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#attributes
+// Attributes functions: https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#attribute-functions
+// Native type MySQL: https://www.prisma.io/docs/concepts/database-connectors/mysql#native-type-mappings
+// Relations: https://www.prisma.io/docs/concepts/components/prisma-schema/relations
+// Scalar types: https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#model-field-scalar-types
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DB_URL")
+}
+
+model Security {
+  id            Int       @id @default(autoincrement())
+  credential    String    @unique @db.VarChar(512)
+  code          String?   @db.VarChar(32)
+  codeExpiresIn DateTime? @db.DateTime(0)
+  validated     Boolean   @default(false)
+}
+
+model Permission {
+  id     Int         @id @default(autoincrement())
+  title  Permissions @unique
+  admins Admin[]
+}
+
+model Admin {
+  id            Int           @id @default(autoincrement())
+  role          AccountRole   @default(admin)
+  name          String        @db.VarChar(512)
+  email         String        @unique @db.VarChar(512)
+  password      String        @db.Text
+  status        AccountStatus
+  imageUrl      String?       @db.Text
+  code          String?       @db.VarChar(32)
+  codeExpiresIn DateTime?     @db.DateTime(0)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  permissions   Permission[]
+}
+
+model User {
+  id            Int           @id @default(autoincrement())
+  role          AccountRole   @default(user)
+  type          UserType
+  name          String        @db.VarChar(512)
+  email         String        @unique @db.VarChar(512)
+  password      String        @db.Text
+  status        AccountStatus
+  imageUrl      String?       @db.Text
+  code          String?       @db.VarChar(32)
+  codeExpiresIn DateTime?     @db.DateTime(0)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+model Faq {
+  id        Int      @id @default(autoincrement())
+  question  String   @db.Text
+  answer    String   @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Text {
+  id        Int      @id @default(autoincrement())
+  type      TextType @unique
+  content   String   @db.LongText
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum Permissions {
+  configuracoes
+  faqs
+  textos
+}
+
+enum AccountRole {
+  admin
+  user
+}
+
+enum AccountStatus {
+  ativo
+  inativo
+  pendente
+}
+
+enum TextType {
+  about
+  privacy
+  terms
+}
+
+enum UserType {
+  app
+  web
+}

@@ -1,0 +1,17 @@
+paths:
+  /admins/permissions:
+    get:
+      summary: 'Rota utilizada para listar as permissões de admin'
+      tags:
+        - Gerencial - Colaboradores
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PermissionSchema'
