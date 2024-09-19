@@ -13,26 +13,12 @@ router
   Controller.loginAdm,
 );
 
-router
-.route('/reset-password/adm')
-.post(
-  Validator.resetPassword,
-  Controller.resetPasswordAdm,
-);
-
 // user routes.
 router
 .route('/login')
 .post(
   Validator.login,
   Controller.loginUser,
-);
-
-router
-.route('/reset-password')
-.post(
-  Validator.resetPassword,
-  Controller.resetPasswordUser,
 );
 
 export default router;

@@ -6,7 +6,6 @@ import ErrorMessages from '@errors/error-messages';
 import { AccountStatus, User } from '@prisma/client';
 import { IPayloadDto } from '../../dtos/payload.dto';
 import { LoginDto } from '../../dtos/login.dto';
-import { ResetPasswordDto } from '../../dtos/password.dto';
 
 import JwtHelper from '@helpers/token.helper';
 import PasswordHelper from '@helpers/password.helper';
@@ -36,15 +35,6 @@ class Service {
     };
   }
 
-  public async resetPasswordUser(data: ResetPasswordDto) {
-    // find user.
-    const user = await this.findByCredentialAndCode(data.credential, data.code);
-
-    // change password.
-    await Repository.changePassword(user.id, PasswordHelper.hash(data.password));
-    return { message: 'Senha atualizada com sucesso!' };
-  }
-
   private checkIfUserIsActive(user: User) {
     if (user.status === AccountStatus.inativo) {
       throw new AppException(403, ErrorMessages.INACTIVE);
@@ -66,15 +56,6 @@ class Service {
 
     if (!user) {
       throw new AppException(400, ErrorMessages.INVALID_CREDENTIALS);
-    }
-    return user;
-  }
-
-  private async findByCredentialAndCode(credential: string, code: string) {
-    const user = await this.findByCredential(credential);
-
-    if (user.code !== code) {
-      throw new AppException(404, ErrorMessages.INCORRECT_CODE_PASS);
     }
     return user;
   }
