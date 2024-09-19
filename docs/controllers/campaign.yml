@@ -1,0 +1,113 @@
+paths:
+  /campaigns:
+    get:
+      summary: 'Rota utilizada para obter todas as campanhas'
+      tags:
+        - Gerencial - Campanhas
+        - User - Campanhas
+      security:
+        - BearerAuth: []
+      description: >
+        ## Como funciona a paginação nessa rota?
+
+        ### - Caso não sejam informados valores para 'page' e 'size', o retorno da api será um array com todos os registros.
+
+        ### - Caso sejam informados valores para 'page' e 'size', o retorno será semelhante ao response abaixo.
+      parameters:
+        - $ref: '#/components/parameters/SearchParameter'
+        - $ref: '#/components/parameters/PageParameter'
+        - $ref: '#/components/parameters/SizeParameter'
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CampaignSchema'
+
+    post:
+      summary: 'Rota utilizada para criar uma nova campanha'
+      tags:
+        - Gerencial - Campanhas
+        - User - Campanhas
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CampaignSchema'
+      responses:
+        '201':
+          description: 'Created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CampaignSchema'
+
+  /campaigns/{id}:
+    get:
+      summary: 'Rota utilizada para obter uma campanha pelo ID'
+      tags:
+        - Gerencial - Campanhas
+        - User - Campanhas
+      security:
+        - BearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/IdParameter'
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CampaignSchema'
+
+    patch:
+      summary: 'Rota utilizada para atualizar uma campanha pelo ID'
+      tags:
+        - Gerencial - Campanhas
+        - User - Campanhas
+      security:
+        - BearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/IdParameter'
+      description: >
+        ## Apenas admin consegue editar todas as campanhas.
+
+        ### - Usuário comum só consegue editar as campanhas que ele mesmo criou.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CampaignSchema'
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CampaignSchema'
+
+    delete:
+      summary: 'Rota utilizada para deletar uma campanha pelo ID'
+      tags:
+        - Gerencial - Campanhas
+        - User - Campanhas
+      security:
+        - BearerAuth: []
+      description: >
+        ## Apenas admin consegue realmente deletar uma campanha.
+        
+        ### - Caso o usuário comum tente deleta-la, acontecerá um soft delete (ou seja, mudará uma propriedade da campanha no banco de dados, mas o registro continuará existindo lá).
+
+        ### - Usuário comum consegue deletar apenas as campanhas que ele mesmo criou.
+      parameters:
+        - $ref: '#/components/parameters/IdParameter'
+      responses:
+        '204':
+          description: 'No Content'
