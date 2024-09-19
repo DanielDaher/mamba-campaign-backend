@@ -6,7 +6,6 @@ import PaginationHelper from '@helpers/pagination.helper';
 import PasswordHelper from '@helpers/password.helper';
 
 import AdminPermissionService from '../admin-permission/admin-permission.service';
-import MailService from '../mail/mail.service';
 
 import { AccountStatus } from '@prisma/client';
 import { CreateAdminDto } from './dtos/create-admin.dto';
@@ -41,19 +40,14 @@ class Service {
     // check if permissions exists.
     await AdminPermissionService.checkIfPermissionsExists(data.permissions);
 
-    // generate random password.
-    const password = PasswordHelper.generate();
-
     // define default values.
     const adminBody = {
       ...body,
-      password: PasswordHelper.hash(password),
+      password: PasswordHelper.hash(data.password),
       status: AccountStatus.ativo,
     };
 
-    // register new admin user and send an email containing the random password.
     const newAdmin = await Repository.createOne(adminBody, permissions);
-    await MailService.sendNewAdminAccountEmail(newAdmin.email, { password });
 
     return newAdmin;
   }

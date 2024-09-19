@@ -8,11 +8,6 @@ class Controller {
     res.status(200).json(result);
   }
 
-  public async forgotPasswordAdm(req: Request, res: Response) {
-    const result = await AdminService.forgotPasswordAdm(req.body);
-    res.status(200).json(result);
-  }
-
   public async resetPasswordAdm(req: Request, res: Response) {
     const result = await AdminService.resetPasswordAdm(req.body);
     res.status(200).json(result);
@@ -21,11 +16,6 @@ class Controller {
 
   public async loginUser(req: Request, res: Response) {
     const result = await UserService.loginUser(req.body);
-    res.status(200).json(result);
-  }
-
-  public async forgotPasswordUser(req: Request, res: Response) {
-    const result = await UserService.forgotPasswordUser(req.body);
     res.status(200).json(result);
   }
 
