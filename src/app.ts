@@ -33,11 +33,12 @@ class App {
     this.app.use(cors());
     this.app.use(cookieParser());
     this.app.use(compression());
+    this.app.use('/swagger', swaggerUI.serve, swaggerUI.setup(swaggerJsdoc(swaggerOptions), { explorer: true }));
     this.app.use(helmet());
   }
 
   private registerRoutes() {
-    this.app.use('/swagger', swaggerUI.serve, swaggerUI.setup(swaggerJsdoc(swaggerOptions), { explorer: true }));
+    // this.app.use('/swagger', swaggerUI.serve, swaggerUI.setup(swaggerJsdoc(swaggerOptions), { explorer: true }));
     this.app.use(routes);
   }
 
