@@ -6,10 +6,26 @@ import { seedCampaign } from './campaign';
 
 const prisma = new PrismaClient();
 async function main() {
-  await seedAdmin(prisma);
-  await seedUser(prisma);
-  await seedCategory(prisma);
-  seedCampaign(prisma);
+  const admins = await prisma.admin.count();
+  const users = await prisma.user.count();
+  const categories = await prisma.category.count();
+  const campaign = await prisma.campaign.count();
+
+  if ( admins === 0 ) {
+    await seedAdmin(prisma);
+  }
+
+  if ( users === 0 ) {
+    await seedUser(prisma);
+  }
+
+  if ( categories === 0 ) {
+    await seedCategory(prisma);
+  }
+
+  if ( campaign === 0 ) {
+    await seedCampaign(prisma);
+  }
 }
 
 main()

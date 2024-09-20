@@ -47,13 +47,7 @@ $ npm start
 
 02 - Suba o projeto:
 ```bash
-$ docker compose up
-```
-
-03 - Rode os seeds dentro do container da api:
-```bash
-$ docker exec -it [nome_do_container] bash
-$ npm run prisma:seed
+$ docker compose up -d
 ```
 
 ## Documentação
