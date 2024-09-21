@@ -34,6 +34,30 @@ paths:
         - User - Campanhas
       security:
         - BearerAuth: []
+      description: >
+        ## Regras para a criação de campanhas:
+
+        ## Autenticação:
+
+        ### - É necessário estar autenticado para acessar essa rota, caso contrário a API voltará um erro.
+
+        ### - Como realizar a autenticação? Basta utilizar a rota /auth/login, passando as credenciais corretas, ou então se cadastrar nas rotas de registro. Ambas as opções retornam um token. Copie este token, clique no cadeado desta rota (canto direito), cole o token e confirme. Pronto, você está autenticado!
+
+        ## Permissão:
+
+        ### - Somente o usuário que criou a campanha (ownerId) consegue editá-la. Isso é uma medida de segurança para que um usuário não mexa nos dados de outro usuário. OBS: o ADMIN consegue editar/deletar qualquer campanha.
+
+        ### - Se o usuário tentar passar um ownerId diferente do seu próprio id, a API retornará um erro. Já o admin, consegue passar qualquer ownerId nesta rota.
+
+        ## Validação dos dados:
+
+        ### - A propriedade categoryId precisa pertencer a uma categoria existente no banco de dados. Caso contrário, a API retornará um erro.
+
+        ### - A propriedade endDate deve sempre ser superior à startDate. Caso contrário, a API retornará um erro.
+
+        ### - A propriedade startDate deve ser sempre IGUAL ou SUPERIOR à data atual no momento da criação da campanha. Caso contrário, a API retornará um erro.
+
+        ### - Se a data final for INFERIOR à data atual, a campanha será marcada com status 'expirada'.
       requestBody:
         required: true
         content:
@@ -76,9 +100,31 @@ paths:
       parameters:
         - $ref: '#/components/parameters/IdParameter'
       description: >
-        ## Apenas admin consegue editar todas as campanhas.
+        ## Regras para a edição de campanhas:
 
-        ### - Usuário comum só consegue editar as campanhas que ele mesmo criou.
+        ## Autenticação:
+
+        ### - É necessário estar autenticado para acessar essa rota, caso contrário a API voltará um erro.
+
+        ### - Como realizar a autenticação? Basta utilizar a rota /auth/login, passando as credenciais corretas, ou então se cadastrar nas rotas de registro. Ambas as opções retornam um token. Copie este token, clique no cadeado desta rota (canto direito), cole o token e confirme. Pronto, você está autenticado!
+
+        ## Permissão:
+
+        ### - Somente o usuário que criou a campanha (ownerId) consegue editá-la. Isso é uma medida de segurança para que um usuário não mexa nos dados de outro usuário. OBS: o ADMIN consegue editar/deletar qualquer campanha.
+
+        ### - Se o usuário tentar passar um ownerId diferente do seu próprio id, a API retornará um erro. Já o admin, consegue passar qualquer ownerId nesta rota.
+
+        ## Validação dos dados:
+
+        ## Lembrando que: não há necessidade em enviar todos os parâmetros na requisição. Passe apenas aqueles que deseja alterar o valor.
+
+        ### - A propriedade categoryId precisa pertencer a uma categoria existente no banco de dados. Caso contrário, a API retornará um erro.
+
+        ### - A propriedade endDate deve sempre ser superior à startDate. Caso contrário, a API retornará um erro.
+
+        ### - A propriedade startDate deve ser sempre IGUAL ou SUPERIOR à data atual no momento da criação da campanha. Caso contrário, a API retornará um erro.
+
+        ### - Se a data final for INFERIOR à data atual, a campanha será marcada com status 'expirada'.
       requestBody:
         required: true
         content:

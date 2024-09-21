@@ -9,7 +9,11 @@ components:
           example: 1
         categoryId:
           type: number
+          writeOnly: true
           example: 2
+        ownerId:
+          type: number
+          example: 1
         title:
           type: string
           example: 'Campanha de Verão'
@@ -35,5 +39,13 @@ components:
           format: date-time
           example: '2024-07-01T12:00:00Z'
         category:
+          type: object
           readOnly: true
-          $ref: '#/components/schemas/CategorySchema'
+          properties:
+            id:
+              type: number
+              example: 1
+            title:
+              type: string
+              example: 'titulo da categoria'
+            
