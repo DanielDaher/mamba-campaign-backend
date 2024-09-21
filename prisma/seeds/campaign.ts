@@ -5,6 +5,9 @@ const campaign: Prisma.CampaignCreateInput = {
   status: 'ativa',
   startDate: new Date('2024-10-10'),
   endDate: new Date('2024-12-31'),
+  owner: {
+    connect: { id: 1 },
+  },
   category: {
     connect: { id: 1 },
   },

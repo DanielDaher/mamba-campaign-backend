@@ -48,6 +48,7 @@ model User {
   codeExpiresIn DateTime?     @db.DateTime(0)
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
+  campaigns     Campaign[]
 }
 
 model Category {
@@ -61,12 +62,14 @@ model Category {
 model Campaign {
   id         Int            @id @default(autoincrement())
   categoryId Int
+  ownerId    Int
   title      String         @db.VarChar(512)
   status     CampaignStatus @default(ativa)
   startDate  DateTime
   endDate    DateTime
   createdAt  DateTime       @default(now())
   updatedAt  DateTime       @updatedAt
+  owner      User           @relation(fields: [ownerId], references: [id])
   category   Category       @relation(fields: [categoryId], references: [id])
 }
 
