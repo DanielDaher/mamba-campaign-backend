@@ -26,6 +26,15 @@ Siga os passos abaixo.
 
   * NodeJS (v20.10.0) e npm (v10.2.3).
   * MySQL (v8.0).
+  * Git.
+
+## Instalando a aplicação:
+
+01 - Clone o projeto utilizando o comando `git clone git@github.com:DanielDaher/mamba-campaign-backend.git`
+
+02 - Entre no diretório do projeto `cd mamba-campaign-backend`
+
+03 - Execute o projeto seguindo os passos abaixo:
 
 ## Executando o projeto
 
