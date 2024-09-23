@@ -21,7 +21,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/UserSchema'
+                  $ref: '#/components/schemas/RegisterSchema'
 
     post:
       summary: 'Rota utilizada para criar um novo usuário'
@@ -35,20 +35,30 @@ paths:
 
         ### - A senha precisa ter pelo menos 4 dígitos.
 
-        ### - o campo imageUrl não é obrigatório. 
+        ### - o campo imageUrl não é obrigatório.
+
+        ## - Como logar no swagger?
+
+        ### - Ao cadastrar um novo usuário, recebe-se um token como resposta.
+        
+        ### - Copie o conteúdo deste token, SEM AS ASPAS.
+
+        ### - Vá ao topo da página do swagger e clique no cadeado 'Authorize', localizado no canto superior direito.
+
+        ### - Cole, no input, o token copiado. Clique no botão 'Authorize' e pronto, você está autenticado!
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UserSchema'
+              $ref: '#/components/schemas/RegisterSchema'
       responses:
         '201':
           description: 'Created'
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserSchema'
+                $ref: '#/components/schemas/PostRegisterResponseSchema'
 
   /registers/{id}:
     get:
@@ -66,7 +76,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserSchema'
+                $ref: '#/components/schemas/RegisterSchema'
 
     patch:
       summary: 'Rota utilizada para atualizar um usuário pelo ID'
@@ -90,14 +100,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UserSchema'
+              $ref: '#/components/schemas/RegisterSchema'
       responses:
         '200':
           description: 'OK'
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserSchema'
+                $ref: '#/components/schemas/RegisterSchema'
 
     delete:
       summary: 'Rota utilizada para deletar um usuário pelo ID'

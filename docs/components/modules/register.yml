@@ -1,5 +1,14 @@
 components:
   schemas:
+    PostRegisterResponseSchema:
+      allOf:
+        - $ref: '#/components/schemas/RegisterSchema'
+        - type: object
+          properties:
+            token:
+              type: string
+              example: 'ABCDEFGH123455'
+
     RegisterSchema:
       type: object
       properties:
