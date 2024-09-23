@@ -10,7 +10,7 @@ components:
         categoryId:
           type: number
           writeOnly: true
-          example: 2
+          example: 1
         ownerId:
           type: number
           example: 1

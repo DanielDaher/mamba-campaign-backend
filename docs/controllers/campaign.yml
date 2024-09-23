@@ -13,6 +13,10 @@ paths:
         ### - Caso não sejam informados valores para 'page' e 'size', o retorno da api será um array com todos os registros.
 
         ### - Caso sejam informados valores para 'page' e 'size', o retorno será semelhante ao response abaixo.
+
+        ## Detalhes importantes:
+
+        ### - Essa rota retorna todas as campanhas cujo status NÃO é 'deletada'.
       parameters:
         - $ref: '#/components/parameters/SearchParameter'
         - $ref: '#/components/parameters/PageParameter'
@@ -149,7 +153,7 @@ paths:
       description: >
         ## Apenas admin consegue realmente deletar uma campanha.
         
-        ### - Caso o usuário comum tente deleta-la, acontecerá um soft delete (ou seja, mudará uma propriedade da campanha no banco de dados, mas o registro continuará existindo lá).
+        ### - Caso o usuário comum tente deleta-la, acontecerá um soft delete (ou seja, mudará o status para 'deletada'. Isso significa que esta campanha não retornará mais na rota get, apenas na get/id).
 
         ### - Usuário comum consegue deletar apenas as campanhas que ele mesmo criou.
       parameters:
