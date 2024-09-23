@@ -10,3 +10,14 @@ export const CreateCampaign = z.object({
   categoryId: z.number(),
   ownerId: z.number(),
 });
+
+export type CreateCampaignFormattedDateDto = z.output<typeof CreateCampaignFormattedDate>;
+export const CreateCampaignFormattedDate = z.object({
+  title: z.string().min(1),
+  status: z.nativeEnum(CampaignStatus).default(CampaignStatus.ativa),
+  startDate: z.date(),
+  endDate: z.date(),
+  categoryId: z.number(),
+  ownerId: z.number(),
+  createdAt: z.string(),
+});

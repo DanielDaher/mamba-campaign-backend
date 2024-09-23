@@ -30,7 +30,7 @@ router
 .get(
   Controller.findOne,
 )
-.put(
+.patch(
   Validator.updateOne,
   Controller.updateOne,
 )
