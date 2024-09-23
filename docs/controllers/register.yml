@@ -1,0 +1,121 @@
+paths:
+  /registers:
+    get:
+      summary: 'Rota utilizada para obter todos os usuários'
+      tags:
+        - Gerencial - Cadastro
+        - User - Cadastro
+      security:
+        - BearerAuth: []
+      description: >
+        ## Como funciona a paginação nessa rota?
+
+        ### - Caso não sejam informados valores para 'page' e 'size', o retorno da api será um array com todos os registros.
+
+        ### - Caso sejam informados valores para 'page' e 'size', o retorno será semelhante ao response abaixo.
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserSchema'
+
+    post:
+      summary: 'Rota utilizada para criar um novo usuário'
+      tags:
+        - Gerencial - Cadastro
+        - User - Cadastro
+      description: >
+        ## Regras para registro de usuário:
+
+        ### - Email é uma chave única, portanto não é possível criar uma nova conta com um email já cadastrado.
+
+        ### - A senha precisa ter pelo menos 4 dígitos.
+
+        ### - o campo imageUrl não é obrigatório. 
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserSchema'
+      responses:
+        '201':
+          description: 'Created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserSchema'
+
+  /registers/{id}:
+    get:
+      summary: 'Rota utilizada para obter um usuário pelo ID'
+      tags:
+        - Gerencial - Cadastro
+        - User - Cadastro
+      security:
+        - BearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/IdParameter'
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserSchema'
+
+    patch:
+      summary: 'Rota utilizada para atualizar um usuário pelo ID'
+      tags:
+        - Gerencial - Cadastro
+        - User - Cadastro
+      security:
+        - BearerAuth: []
+      description: >
+        ## Regras para edição de usuário:
+
+        ### - Email é uma chave única, portanto não é possível atualizar para um email que já está sendo usado.
+
+        ### - Somente o admin e o próprio usuário conseguem acessar essa rota e editar as informações.
+
+        ### - Não há necessidade de enviar todos os campos novamente, somente os que deseja editar. 
+      parameters:
+        - $ref: '#/components/parameters/IdParameter'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserSchema'
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserSchema'
+
+    delete:
+      summary: 'Rota utilizada para deletar um usuário pelo ID'
+      description: >
+        ## Regras para deletar um usuário:
+
+        ### - Somente o admin consegue realmente deletar um usuário do banco de dados.
+
+        ### - Se o usuário comum tentar acessar essa rota, seu status será alterado para 'inativo'.
+
+        ### - Um usuário só consegue alterar o status de si mesmo. 
+      tags:
+        - Gerencial - Cadastro
+        - User - Cadastro
+      security:
+        - BearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/IdParameter'
+      responses:
+        '204':
+          description: 'No Content'

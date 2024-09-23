@@ -3,10 +3,12 @@ tags:
   - name: Documentação da API
   - name: --
   - name: Gerencial - Autenticação
+  - name: Gerencial - Cadastro
   - name: Gerencial - Colaboradores
   - name: Gerencial - Categorias
   - name: Gerencial - Campanhas
   - name: ---
   - name: User - Autenticação
+  - name: User - Cadastro
   - name: User - Categorias
   - name: User - Campanhas
