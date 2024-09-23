@@ -7,11 +7,7 @@ export default {
     },
     servers: [
       {
-        url: 'http://127.0.0.1:3000',
-        description: 'Development environment',
-      },
-      {
-        url: `${process.env.URL}:${process.env.PORT}`,
+        url: `http://localhost:${process.env.PORT}`,
         description: 'Testing environment',
       },
     ],
