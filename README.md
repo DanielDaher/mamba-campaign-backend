@@ -16,7 +16,7 @@ Construir uma API que permita aos usuários criar, editar e deletar campanhas. E
 
 ## Tecnologias utilizadas:
 
-As principais tecnologias utilizadas no projeto foram Node.JS, Express.Js, swagger, bcrypt, JSON Web Token, Moment.js, Typescript e Zod Validator.
+As principais tecnologias utilizadas no projeto foram Node.JS, Express.Js, swagger, bcrypt, JSON Web Token, Moment.js, Typescript, Prisma, MySQL e Zod Validator.
 
 ## Como rodar o projeto?
 
