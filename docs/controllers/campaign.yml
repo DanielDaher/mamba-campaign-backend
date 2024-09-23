@@ -17,6 +17,8 @@ paths:
         ## Detalhes importantes:
 
         ### - Essa rota retorna todas as campanhas cujo status NÃO é 'deletada'.
+
+        ### - Essa rota possui uma tratativa que confere o status das campanhas, e os atualiza no banco de dados se necessário.
       parameters:
         - $ref: '#/components/parameters/SearchParameter'
         - $ref: '#/components/parameters/PageParameter'
@@ -86,6 +88,8 @@ paths:
         - BearerAuth: []
       parameters:
         - $ref: '#/components/parameters/IdParameter'
+      description: >
+        ## Essa rota possui uma tratativa que confere o status das campanhas, e os atualiza no banco de dados se necessário.
       responses:
         '200':
           description: 'OK'

@@ -9,20 +9,58 @@ import ErrorMessages from '@errors/error-messages';
 import PaginationHelper from '@helpers/pagination.helper';
 import categoryService from '@modules/category/category.service';
 
+import { CampaignStatus } from '@prisma/client';
+import { IPayloadDto } from '@modules/auth/dtos/payload.dto';
 import { CreateCampaignDto } from './dtos/create-campaign.dto';
 import { UpdateCampaignDto } from './dtos/update-campaign.dto';
-import { IPayloadDto } from '@modules/auth/dtos/payload.dto';
-import { CampaignStatus } from '@prisma/client';
 
 class Service {
   public async findAll(size: number, page: number, search?: string) {
+
     const campaigns = await Repository.findAll(size, page, search);
 
-    return PaginationHelper.paginate(campaigns, size, page);
+    const currentDate = this.getCurrentDate();
+    const formatedCampaigns: typeof campaigns = [[], campaigns[1]];
+
+    await Promise.all(
+      campaigns[0].map( async(item) => {
+        const expiredStatus = moment(item.endDate).isBefore(currentDate);
+        if (expiredStatus) {
+          const itemUpdated = await Repository.updateOne(item.id, { status: CampaignStatus.expirada });
+          return formatedCampaigns[0].push(itemUpdated);
+        }
+
+        formatedCampaigns[0].push(item);
+      }),
+    );
+
+    formatedCampaigns[0].sort((a, b) => a.id - b.id);
+
+    return PaginationHelper.paginate(formatedCampaigns, size, page);
   }
 
   public async findAllNoPagination(search?: string) {
-    return await Repository.findAllNoPagination(search);
+
+    const campaigns = await Repository.findAllNoPagination(search);
+
+    const currentDate = this.getCurrentDate();
+    const formatedCampaigns: typeof campaigns = [];
+
+    await Promise.all(
+      campaigns.map( async(item) => {
+        const expiredStatus = moment(item.endDate).isBefore(currentDate);
+        if (expiredStatus) {
+          const itemUpdated = await Repository.updateOne(item.id, { status: CampaignStatus.expirada });
+          return formatedCampaigns.push(itemUpdated);
+        }
+
+        formatedCampaigns.push(item);
+      }),
+    );
+
+    formatedCampaigns.sort((a, b) => a.id - b.id);
+
+    return formatedCampaigns;
   }
 
   public async findOne(id: number) {
@@ -31,6 +69,15 @@ class Service {
     if (!campaign) {
       throw new AppException(404, ErrorMessages.CAMPAIGN_NOT_FOUND);
     }
+
+    const currentDate = this.getCurrentDate();
+
+    const expiredStatus = moment(campaign.endDate).isBefore(currentDate);
+    if (expiredStatus) {
+      const updatedCampaign = await Repository.updateOne(campaign.id, { status: CampaignStatus.expirada });
+      return updatedCampaign;
+    }
+
     return campaign;
   }
 
@@ -91,6 +138,12 @@ class Service {
 
     const status = CampaignStatus.deletada;
     return this.updateOne(id, { status }, currentAuth);
+  }
+
+  private getCurrentDate(): moment.Moment {
+    const brasilNow = momentTimezone.utc().tz('America/Sao_Paulo').format();
+    const currentDate = moment.parseZone(brasilNow.slice(0, -6));
+    return currentDate;
   }
 
   private validateDates(startDate: Date, endDate: Date, createdAt: string) {
