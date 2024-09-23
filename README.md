@@ -8,6 +8,20 @@
   <img width="auto" height="23em" src="https://img.shields.io/badge/Vitest-323330?style=flat&logo=vitest">
 </div>
 
+Boas vindas à API Mamba Campaign, onde o usuário pode se cadastrar, autenticar e gerenciar campanhas!
+
+## Objetivos:
+
+Construir uma API que permita aos usuários criar, editar e deletar campanhas. Existem regras de negócio para tais ações, que estão documentadas no swagger da aplicação.
+
+## Tecnologias utilizadas:
+
+As principais tecnologias utilizadas no projeto foram Node.JS, Express.Js, swagger, bcrypt, JSON Web Token, Moment.js, Typescript e Zod Validator.
+
+## Como rodar o projeto?
+
+Siga os passos abaixo.
+
 ## Pré-Requisitos
 
   * NodeJS (v20.10.0) e npm (v10.2.3).
@@ -52,4 +66,6 @@ $ docker compose up -d
 
 ## Documentação
 
-A documentação pode ser consultada através do endpoint: `/swagger`
+A documentação pode ser consultada através do endpoint: `/swagger`.
+
+Se o projeto estiver rodando na porta 3000, por exemplo, basta acessar em `http://127.0.0.1:3000/swagger/`.
