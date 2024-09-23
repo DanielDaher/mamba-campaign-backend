@@ -82,4 +82,4 @@ $ sudo docker compose up -d
 
 A documentação pode ser consultada através do endpoint: `/swagger`.
 
-Se o projeto estiver rodando na porta 3000, por exemplo, basta acessar em `http://127.0.0.1:3000/swagger/`.
+Se o projeto estiver rodando na porta 3000, por exemplo, basta acessar em `http://localhost:3000/swagger/`.
