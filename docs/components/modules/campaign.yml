@@ -1,0 +1,51 @@
+components:
+  schemas:
+    CampaignSchema:
+      type: object
+      properties:
+        id:
+          type: number
+          readOnly: true
+          example: 1
+        categoryId:
+          type: number
+          writeOnly: true
+          example: 1
+        ownerId:
+          type: number
+          example: 1
+        title:
+          type: string
+          example: 'Campanha de Verão'
+        status:
+          type: string
+          example: 'ativa'
+        startDate:
+          type: string
+          format: date-time
+          example: '2024-07-01T12:00:00Z'
+        endDate:
+          type: string
+          format: date-time
+          example: '2024-09-01T12:00:00Z'
+        createdAt:
+          type: string
+          readOnly: true
+          format: date-time
+          example: '2024-06-01T12:00:00Z'
+        updatedAt:
+          type: string
+          readOnly: true
+          format: date-time
+          example: '2024-07-01T12:00:00Z'
+        category:
+          type: object
+          readOnly: true
+          properties:
+            id:
+              type: number
+              example: 1
+            title:
+              type: string
+              example: 'titulo da categoria'
+            

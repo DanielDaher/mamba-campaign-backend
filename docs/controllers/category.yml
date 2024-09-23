@@ -1,0 +1,110 @@
+paths:
+  /categories:
+    get:
+      summary: 'Rota utilizada para obter todas as categorias'
+      tags:
+        - Gerencial - Categorias
+        - User - Categorias
+      description: >
+        ## Como funciona a paginação nessa rota?
+
+        ### - Caso não sejam informados valores para 'page' e 'size', o retorno da api será um array com todos os registros.
+
+        ### - Caso sejam informados valores para 'page' e 'size', o retorno será semelhante ao response abaixo.
+      parameters:
+        - $ref: '#/components/parameters/SearchParameter'
+        - $ref: '#/components/parameters/PageParameter'
+        - $ref: '#/components/parameters/SizeParameter'
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CategorySchema'
+
+    post:
+      summary: 'Rota utilizada para criar uma nova categoria'
+      tags:
+        - Gerencial - Categorias
+      security:
+        - BearerAuth: []
+      description: >
+        ## Apenas admin consegue acessar essa rota.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategorySchema'
+      responses:
+        '201':
+          description: 'Created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategorySchema'
+
+  /categories/{id}:
+    get:
+      summary: 'Rota utilizada para obter uma categoria pelo ID'
+      tags:
+        - Gerencial - Categorias
+        - User - Categorias
+      security:
+        - BearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/IdParameter'
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategorySchema'
+
+    patch:
+      summary: 'Rota utilizada para atualizar uma categoria pelo ID'
+      tags:
+        - Gerencial - Categorias
+        - User - Categorias
+      security:
+        - BearerAuth: []
+      description: >
+        ## - Não há necessidade em enviar todos os campos novamente, apenas os que deseja editar.
+
+        ### - Apenas admin consegue editar os dados de uma campanha.
+      parameters:
+        - $ref: '#/components/parameters/IdParameter'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategorySchema'
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategorySchema'
+
+    delete:
+      summary: 'Rota utilizada para deletar uma categoria pelo ID'
+      tags:
+        - Gerencial - Categorias
+        - User - Categorias
+      description: >
+        ## - Apenas admin consegue deletar uma campanha.
+      security:
+        - BearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/IdParameter'
+      responses:
+        '204':
+          description: 'No Content'

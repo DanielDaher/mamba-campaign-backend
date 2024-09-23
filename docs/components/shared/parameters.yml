@@ -42,7 +42,6 @@ components:
       name: search
       schema:
         type: string
-        example: string
 
     TextTypeParameter:
       in: query

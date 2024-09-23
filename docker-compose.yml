@@ -1,11 +1,10 @@
-version: "3.8"
 services:
   app:
     build:
       context: .
       dockerfile: Dockerfile
-    command: bash -c "npm run prisma:migration && npm start"
-    container_name: app_projectNameHere
+    command: bash -c "npm run prisma:migration && npm run prisma:seed && npm start"
+    container_name: app_mamba_campaign_backend
     depends_on:
       app_mysql:
         condition:
@@ -18,7 +17,7 @@ services:
 
   app_mysql:
     image: mysql:8.0
-    container_name: mysql_projectNameHere
+    container_name: mysql_mamba_campaign_backend
     environment:
       MYSQL_DATABASE: ${DB_DATABASE_NAME}
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}

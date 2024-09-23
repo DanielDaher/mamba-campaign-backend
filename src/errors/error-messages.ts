@@ -10,10 +10,15 @@ export default {
   INVALID_CREDENTIALS: 'Credenciais incorretas.',
 
   ADMIN_NOT_FOUND: 'Usuário não encontrado na base de dados.',
+  CAMPAIGN_NOT_FOUND: 'Campanha não encontrada na base de dados.',
+  CATEGORY_NOT_FOUND: 'Categoria não encontrada na base de dados.',
   USER_NOT_FOUND: 'Usuário não encontrado na base de dados.',
   FAQ_NOT_FOUND: 'FAQ não encontrada na base de dados.',
   PERMISSION_NOT_FOUND: 'Permissão não encontrada na base de dados.',
   TEXT_NOT_FOUND: 'Texto não encontrado na base de dados.',
+
+  INVALID_END_START_DATE: 'A data final deve ser maior que a data de início.',
+  INVALID_START_DATE: 'A data de início deve ser igual ou posterior à data atual.',
 
   FORBIDDEN: 'Sem permissão para acessar esse recurso.',
   INACTIVE: 'Sua conta foi suspensa.',

@@ -8,10 +8,33 @@
   <img width="auto" height="23em" src="https://img.shields.io/badge/Vitest-323330?style=flat&logo=vitest">
 </div>
 
+Boas vindas à API Mamba Campaign, onde o usuário pode se cadastrar, autenticar e gerenciar campanhas!
+
+## Objetivos:
+
+Construir uma API que permita aos usuários criar, editar e deletar campanhas. Existem regras de negócio para tais ações, que estão documentadas no swagger da aplicação.
+
+## Tecnologias utilizadas:
+
+As principais tecnologias utilizadas no projeto foram Node.JS, Express.Js, swagger, bcrypt, JSON Web Token, Moment.js, Typescript, Prisma, MySQL e Zod Validator.
+
+## Como rodar o projeto?
+
+Siga os passos abaixo.
+
 ## Pré-Requisitos
 
   * NodeJS (v20.10.0) e npm (v10.2.3).
   * MySQL (v8.0).
+  * Git.
+
+## Instalando a aplicação:
+
+01 - Clone o projeto utilizando o comando `git clone git@github.com:DanielDaher/mamba-campaign-backend.git`
+
+02 - Entre no diretório do projeto `cd mamba-campaign-backend`
+
+03 - Execute o projeto seguindo os passos abaixo:
 
 ## Executando o projeto
 
@@ -47,15 +70,16 @@ $ npm start
 
 02 - Suba o projeto:
 ```bash
-$ docker compose up
+$ docker compose up -d
 ```
 
-03 - Rode os seeds dentro do container da api:
+ou 
 ```bash
-$ docker exec -it [nome_do_container] bash
-$ npm run prisma:seed
+$ sudo docker compose up -d
 ```
 
 ## Documentação
 
-A documentação pode ser consultada através do endpoint: `/swagger`
+A documentação pode ser consultada através do endpoint: `/swagger`.
+
+Se o projeto estiver rodando na porta 3000, por exemplo, basta acessar em `http://localhost:3000/swagger/`.

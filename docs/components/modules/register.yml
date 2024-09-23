@@ -1,0 +1,56 @@
+components:
+  schemas:
+    PostRegisterResponseSchema:
+      allOf:
+        - $ref: '#/components/schemas/RegisterSchema'
+        - type: object
+          properties:
+            token:
+              type: string
+              example: 'ABCDEFGH123455'
+
+    RegisterSchema:
+      type: object
+      properties:
+        id:
+          type: number
+          readOnly: true
+          example: 1
+        role:
+          type: string
+          readOnly: true
+          example: 'user'
+        type:
+          type: string
+          example: 'app'
+        name:
+          type: string
+          example: 'João Silva'
+        email:
+          type: string
+          example: 'joao.silva@example.com'
+        password:
+          type: string
+          writeOnly: true
+          example: '123456789'
+        status:
+          type: string
+          example: 'ativo'
+        imageUrl:
+          type: string
+          example: 'http://example.com/image.jpg'
+        createdAt:
+          type: string
+          readOnly: true
+          format: date-time
+          example: '2024-01-01T12:00:00Z'
+        updatedAt:
+          type: string
+          readOnly: true
+          format: date-time
+          example: '2024-01-01T12:00:00Z'
+        campaigns:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/CampaignSchema'

@@ -14,14 +14,6 @@ datasource db {
   url      = env("DB_URL")
 }
 
-model Security {
-  id            Int       @id @default(autoincrement())
-  credential    String    @unique @db.VarChar(512)
-  code          String?   @db.VarChar(32)
-  codeExpiresIn DateTime? @db.DateTime(0)
-  validated     Boolean   @default(false)
-}
-
 model Permission {
   id     Int         @id @default(autoincrement())
   title  Permissions @unique
@@ -56,22 +48,36 @@ model User {
   codeExpiresIn DateTime?     @db.DateTime(0)
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
+  campaigns     Campaign[]
 }
 
-model Faq {
-  id        Int      @id @default(autoincrement())
-  question  String   @db.Text
-  answer    String   @db.Text
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model Category {
+  id        Int        @id @default(autoincrement())
+  title     String     @db.VarChar(512)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  campaigns Campaign[]
 }
 
-model Text {
-  id        Int      @id @default(autoincrement())
-  type      TextType @unique
-  content   String   @db.LongText
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model Campaign {
+  id         Int            @id @default(autoincrement())
+  categoryId Int
+  ownerId    Int
+  title      String         @db.VarChar(512)
+  status     CampaignStatus @default(ativa)
+  startDate  DateTime
+  endDate    DateTime
+  createdAt  String
+  updatedAt  DateTime       @updatedAt
+  owner      User           @relation(fields: [ownerId], references: [id])
+  category   Category       @relation(fields: [categoryId], references: [id])
+}
+
+enum CampaignStatus {
+  ativa
+  pausada
+  expirada
+  deletada
 }
 
 enum Permissions {
@@ -89,12 +95,6 @@ enum AccountStatus {
   ativo
   inativo
   pendente
-}
-
-enum TextType {
-  about
-  privacy
-  terms
 }
 
 enum UserType {
