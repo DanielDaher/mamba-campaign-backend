@@ -6,11 +6,13 @@ import AppException from '@errors/app-exception';
 import ErrorMessages from '@errors/error-messages';
 import PaginationHelper from '@helpers/pagination.helper';
 
+import JwtHelper from '@helpers/token.helper';
+import passwordHelper from '@helpers/password.helper';
+
 import { CreateRegisterDto } from './dtos/create-register.dto';
 import { UpdateRegisterDto } from './dtos/update-register.dto';
 import { IPayloadDto } from '@modules/auth/dtos/payload.dto';
 import userRepository from '@modules/auth/services/user/user.repository';
-import passwordHelper from '@helpers/password.helper';
 
 class Service {
   public async findAll(size: number, page: number, search?: string) {
@@ -38,7 +40,19 @@ class Service {
     const password = passwordHelper.hash(data.password);
 
     const formattedData = { ...data, password };
-    return await Repository.createOne(formattedData);
+    const newUser = await Repository.createOne(formattedData);
+
+    const payload: IPayloadDto = {
+      id: newUser.id,
+      role: newUser.role,
+      type: newUser.type,
+      name: newUser.name,
+    };
+
+    return {
+      token: JwtHelper.createToken(payload),
+      ...newUser,
+    };
   }
 
   public async updateOne(id: number, data: UpdateRegisterDto, currentAuth: IPayloadDto) {
