@@ -73,6 +73,11 @@ $ npm start
 $ docker compose up -d
 ```
 
+ou 
+```bash
+$ sudo docker compose up -d
+```
+
 ## Documentação
 
 A documentação pode ser consultada através do endpoint: `/swagger`.
