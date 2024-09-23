@@ -67,7 +67,7 @@ model Campaign {
   status     CampaignStatus @default(ativa)
   startDate  DateTime
   endDate    DateTime
-  createdAt  DateTime       @default(now())
+  createdAt  String
   updatedAt  DateTime       @updatedAt
   owner      User           @relation(fields: [ownerId], references: [id])
   category   Category       @relation(fields: [categoryId], references: [id])
@@ -77,6 +77,7 @@ enum CampaignStatus {
   ativa
   pausada
   expirada
+  deletada
 }
 
 enum Permissions {
