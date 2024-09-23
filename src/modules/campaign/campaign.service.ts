@@ -13,6 +13,7 @@ import { CampaignStatus } from '@prisma/client';
 import { IPayloadDto } from '@modules/auth/dtos/payload.dto';
 import { CreateCampaignDto } from './dtos/create-campaign.dto';
 import { UpdateCampaignDto } from './dtos/update-campaign.dto';
+import registerService from '@modules/register/register.service';
 
 class Service {
   public async findAll(size: number, page: number, search?: string) {
@@ -83,6 +84,7 @@ class Service {
 
   public async createOne(data: CreateCampaignDto, currentAuth: IPayloadDto) {
     await categoryService.findOne(data.categoryId);
+    await registerService.findOne(data.ownerId);
     Auth.checkCurrentUser(currentAuth, data.ownerId);
 
     const startDate = new Date(data.startDate);
@@ -108,6 +110,7 @@ class Service {
     Auth.checkCurrentUser(currentAuth, campaign.owner.id);
 
     if (data.ownerId) {
+      await registerService.findOne(data.ownerId);
       Auth.checkCurrentUser(currentAuth, data.ownerId);
     }
 
